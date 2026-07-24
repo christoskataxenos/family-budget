@@ -1,48 +1,34 @@
+[English](#english) | [Ελληνικά](#ελληνικά)
+
+---
+
+<a name="english"></a>
 # Family Budget & Finance Tracker
 
-A lightweight, self-hosted family budget and finance management application designed for minimal memory and CPU resource utilization.
+Family Budget is a self-hosted web application for tracking household income, expenses, investments, and savings. It uses FastAPI and React, runs on SQLite or Docker, and maintains a low RAM and CPU footprint.
 
----
+## Core Features
 
-## Features
+- **Transaction Management**: Record income, expenses, investments, and savings with dates, amounts, frequencies, and user attribution.
+- **Categorization**: 12 predefined expense categories (Housing, Utilities, Loans & Installments, Insurance, Groceries, Transport, Health, Education, Taxes & Fees, Personal Care & Shopping, Entertainment, and Other).
+- **Budget Limits**: Define monthly spending thresholds per category. The system tracks consumption against limits and flags overspending.
+- **Role-Based Access**: Multi-user support with Administrator (protected by a 4-digit PIN) and Member roles.
+- **Data Export**: Export stored records to CSV, XLSX, and JSON files directly from the web interface.
+- **Visual Analytics**: Interactive category distribution and spending overview charts powered by Recharts.
 
-- **Transaction Management**: Record and track income, expenses, investments, and savings.
-- **Expense Categorization**:
-  - Groceries
-  - Housing & Rent
-  - Loans & Installments
-  - Insurance
-  - Utilities
-  - Entertainment & Dining
-  - Transport & Fuel
-  - Health & Medical
-  - Education & Family
-  - Taxes & Fees
-  - Personal Care & Shopping
-  - Other Expense
-- **Budget Limits**: Define monthly spending thresholds per expense category with visual overspend indicators.
-- **Role-Based Access Control**: Separate administrative access (protected by a 4-digit PIN) from general family member accounts.
-- **Authentication & Security**: Passlib bcrypt password and PIN hashing with JSON Web Tokens (JWT).
-- **Data Export**: Export transaction data to CSV, XLSX (Excel), and JSON formats.
-- **Analytics & Dashboards**: Interactive financial metrics and distribution charts powered by Recharts.
-
----
-
-## Tech Stack
+## Architecture & Tech Stack
 
 - **Backend**: Python 3.14+, FastAPI, SQLAlchemy 2.0 (Async), Pydantic v2, SQLite.
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide.
-- **Deployment**: Docker, Docker Compose, Caddy Reverse Proxy.
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide Icons.
+- **Deployment**: Docker, Docker Compose, Caddy.
 
----
-
-## Getting Started
+## Quick Start
 
 ### Local Development (Windows 11)
 
-#### 1. Backend API (Port 8050)
+#### Backend Setup (Port 8050)
 
-Execute the following commands in PowerShell within the `backend` directory:
+Run the setup and execution scripts from PowerShell in the `backend` directory:
 
 ```powershell
 cd backend
@@ -50,30 +36,90 @@ cd backend
 .\run_win11.ps1
 ```
 
-- Swagger API Documentation: http://localhost:8050/docs
-- Health Check: http://localhost:8050/health
+- API Documentation: http://localhost:8050/docs
+- Health Status: http://localhost:8050/health
 
-#### 2. Frontend Dashboard (Port 3000)
+#### Frontend Setup (Port 3000)
 
-Execute the following commands in a separate PowerShell window within the `frontend` directory:
+Run the startup script in a second PowerShell window within the `frontend` directory:
 
 ```powershell
 cd frontend
 .\run_frontend_win11.ps1
 ```
 
-- Web Dashboard: http://localhost:3000
+- Web Interface: http://localhost:3000
 
----
+### Docker Deployment
 
-## Docker Deployment
-
-To launch the complete application stack (Backend, Frontend, and Caddy Proxy) using Docker Compose:
+To launch the full stack (Backend, Frontend, and Caddy Reverse Proxy) with a single command:
 
 ```bash
 cp .env.example .env
 docker-compose up --build -d
 ```
 
-- Caddy Reverse Proxy: http://localhost:8080
+- Caddy Proxy: http://localhost:8080
 - API Documentation: http://localhost:8050/docs
+
+---
+
+<a name="ελληνικά"></a>
+# Διαχείριση Οικογενειακού Προϋπολογισμού
+
+Το Family Budget είναι μια αυτο-φιλοξενούμενη (self-hosted) εφαρμογή ιστού για την παρακολούθηση εσόδων, εξόδων, επενδύσεων και αποταμιεύσεων μιας οικογένειας. Βασίζεται σε FastAPI και React, χρησιμοποιεί SQLite ή Docker, και είναι σχεδιασμένο για χαμηλή κατανάλωση πόρων RAM και CPU.
+
+## Βασικές Λειτουργίες
+
+- **Διαχείριση Συναλλαγών**: Καταγραφή εσόδων, εξόδων, επενδύσεων και αποταμιεύσεων με ημερομηνία, ποσό, συχνότητα και αντιστοίχιση σε μέλος της οικογένειας.
+- **Κατηγοριοποίηση Εξόδων**: 12 προκαθορισμένες κατηγορίες εξόδων (Σπίτι, Κοινή Ωφέλεια, Δάνεια & Δόσεις, Ασφάλειες, Σούπερ Μάρκετ, Μεταφορές, Υγεία, Εκπαίδευση, Φόροι & Τέλη, Προσωπική Φροντίδα & Αγορές, Ψυχαγωγία, Άλλα Έξοδα).
+- **Όρια Προϋπολογισμού**: Ορισμός μηνιαίων ορίων δαπάνης ανά κατηγορία με οπτική επισήμανση υπερβάσεων.
+- **Ρόλοι Χρηστών**: Διαχωρισμός δικαιωμάτων σε Διαχειριστή (Admin με προστασία 4-ψηφιου PIN) και απλά Μέλη Οικογένειας.
+- **Εξαγωγή Δεδομένων**: Εξαγωγή εγγραφών σε αρχεία CSV, XLSX (Excel) και JSON απευθείας από τη διεπαφή.
+- **Γραφήματα & Αναλύσεις**: Οπτικοποίηση κατανομής δαπανών με διαδραστικά γραφήματα μέσω Recharts.
+
+## Αρχιτεκτονική & Τεχνολογίες
+
+- **Backend**: Python 3.14+, FastAPI, SQLAlchemy 2.0 (Async), Pydantic v2, SQLite.
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide Icons.
+- **Deployment**: Docker, Docker Compose, Caddy.
+
+## Οδηγός Εκτέλεσης
+
+### Τοπική Ανάπτυξη (Windows 11)
+
+#### Εκκίνηση Backend (Port 8050)
+
+Εκτελέστε τα παρακάτω PowerShell scripts στον φάκελο `backend`:
+
+```powershell
+cd backend
+.\setup_win11.ps1
+.\run_win11.ps1
+```
+
+- Τεκμηρίωση API: http://localhost:8050/docs
+- Έλεγχος Κατάστασης: http://localhost:8050/health
+
+#### Εκκίνηση Frontend (Port 3000)
+
+Εκτελέστε το script σε δεύτερο παράθυρο PowerShell στον φάκελο `frontend`:
+
+```powershell
+cd frontend
+.\run_frontend_win11.ps1
+```
+
+- Διεπαφή Χρήστη: http://localhost:3000
+
+### Εκτέλεση μέσω Docker
+
+Για την εκκίνηση της πλήρους εφαρμογής (Backend, Frontend και Caddy Reverse Proxy) σε περιβάλλον Docker:
+
+```bash
+cp .env.example .env
+docker-compose up --build -d
+```
+
+- Caddy Proxy: http://localhost:8080
+- Τεκμηρίωση API: http://localhost:8050/docs
