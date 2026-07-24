@@ -1,0 +1,28 @@
+# Ρύθμιση Caddy Reverse Proxy για την εφαρμογή Family Budget
+:80 {
+    # Δρομολόγηση αιτημάτων API στο FastAPI backend container
+    handle /api/* {
+        reverse_proxy backend:8000
+    }
+
+    # Δρομολόγηση documentation FastAPI (OpenAPI)
+    handle /docs* {
+        reverse_proxy backend:8000
+    }
+    handle /openapi.json {
+        reverse_proxy backend:8000
+    }
+
+    # Δρομολόγηση Healthcheck endpoint
+    handle /health {
+        reverse_proxy backend:8000
+    }
+
+    # Προεπιλεγμένη απόκριση για στατικά αρχεία SPA ή προσωρινό μήνυμα
+    handle {
+        respond "Family Budget & Finance Tracker is running successfully!" 200
+    }
+
+    # Συμπίεση αποκρίσεων για μέγιστη ταχύτητα
+    encode gzip zstd
+}

@@ -1,0 +1,74 @@
+version: '3.8'
+
+# Ορισμός υπηρεσιών για την εφαρμογή οικογενειακού προϋπολογισμού
+services:
+  # Πίσω μέρος (Backend API - FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: family_budget_backend
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-super_secret_key_family_budget_2026}
+      - ALGORITHM=${ALGORITHM:-HS256}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-43200}
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/budget.db
+      - FIRST_ADMIN_EMAIL=${FIRST_ADMIN_EMAIL:-admin@family.local}
+      - FIRST_ADMIN_PASSWORD=${FIRST_ADMIN_PASSWORD:-AdminPassword123!}
+      - FIRST_ADMIN_NAME=${FIRST_ADMIN_NAME:-Family Admin}
+    volumes:
+      - ./data:/app/data
+    ports:
+      # Αντιστοίχιση σε προσαρμοσμένη θύρα Host 8050
+      - "${BACKEND_PORT:-8050}:8000"
+    networks:
+      - budget_network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 64M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Reverse Proxy (Caddy Server)
+  caddy:
+    image: caddy:2-alpine
+    container_name: family_budget_proxy
+    restart: unless-stopped
+    ports:
+      # Αντιστοίχιση σε προσαρμοσμένες θύρες Host (8080 αντί για 80)
+      - "${PROXY_PORT:-8080}:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - budget_network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+
+networks:
+  budget_network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
