@@ -62,6 +62,12 @@ docker-compose up --build -d
 - Caddy Proxy: http://localhost:8080
 - API Documentation: http://localhost:8050/docs
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2026 Christos Kataxenos.
+
 ---
 
 <a name="ελληνικά"></a>
@@ -123,3 +129,9 @@ docker-compose up --build -d
 
 - Caddy Proxy: http://localhost:8080
 - Τεκμηρίωση API: http://localhost:8050/docs
+
+## Άδεια Χρήσης
+
+Το παρόν έργο διατίθεται υπό την άδεια χρήσης MIT License. Δείτε το αρχείο [LICENSE](LICENSE) για λεπτομέρειες.
+
+Copyright (c) 2026 Christos Kataxenos.
