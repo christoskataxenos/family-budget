@@ -1,69 +1,79 @@
-# Family Budget & Finance Tracker 🏠💰
+# Family Budget & Finance Tracker
 
-Ελαφριά, αυτο-φιλοξενούμενη (self-hosted) εφαρμογή διαχείρισης οικογενειακού προϋπολογισμού και οικονομικών, βελτιστοποιημένη για ελάχιστη κατανάλωση πόρων (RAM/CPU).
-
----
-
-## ✨ Χαρακτηριστικά (Features)
-
-* **📊 Πλήρης Διαχείριση Συναλλαγών**: Καταγραφή Εσόδων, Εξόδων, Επενδύσεων και Αποταμιεύσεων.
-* **🏷️ Πλούσιες Κατηγορίες Εξόδων**:
-  * 🛒 **Σούπερ Μάρκετ & Τρόφιμα** (Groceries)
-  * 🏠 **Ενοίκιο & Σπίτι** (Housing & Rent)
-  * 🏦 **Δάνεια & Δόσεις** (Loans & Installments)
-  * 🛡️ **Ασφάλειες** (Insurance)
-  * ⚡ **ΔΕΗ, Νερό, Ίντερνετ** (Utilities)
-  * 🍕 **Ψυχαγωγία & Φαγητό έξω** (Entertainment & Dining)
-  * 🚗 **Μεταφορές & Καύσιμα** (Transport & Fuel)
-  * 🏥 **Υγεία & Φάρμακα** (Health & Medical)
-  * 🎓 **Εκπαίδευση & Παιδιά** (Education & Family)
-  * 🏛️ **Φόροι & Τέλη** (Taxes & Fees)
-  * 🛍️ **Προσωπική Φροντίδα & Αγορές** (Personal Care & Shopping)
-  * 📦 **Άλλα Έξοδα** (Other Expense)
-* **🎯 Όρια Προϋπολογισμού (Budget Limits)**: Ορισμός μηνιαίων ορίων ανά κατηγορία με οπτικές ειδοποιήσεις υπέρβασης.
-* **👥 Πολλαπλοί Χρήστες & Ρόλοι**: Διαχωρισμός σε Admin (με προστασία 4-ψηφιου PIN) και απλά Μέλη Οικογένειας.
-* **🔒 Ασφάλεια**: Κρυπτογράφηση κωδικών & PIN (Passlib / bcrypt), JWT Tokens.
-* **📤 Εξαγωγή Δεδομένων**: Εξαγωγή σε μορφή CSV, Excel (.xlsx) και JSON.
-* **📈 Διαδραστικά Γραφήματα**: Οπτικοποίηση δαπανών και κατανομής με Recharts.
+A lightweight, self-hosted family budget and finance management application designed for minimal memory and CPU resource utilization.
 
 ---
 
-## 🛠️ Τεχνολογικό Στοίβαγμα (Tech Stack)
+## Features
 
-* **Backend**: FastAPI (Python 3.14+), SQLAlchemy 2.0 Async, Pydantic v2, SQLite / Uvicorn.
-* **Frontend**: React 18, TypeScript, Vite, TailwindCSS, Recharts, Lucide Icons.
-* **DevOps**: Docker, Docker Compose, Caddy Reverse Proxy.
+- **Transaction Management**: Record and track income, expenses, investments, and savings.
+- **Expense Categorization**:
+  - Groceries
+  - Housing & Rent
+  - Loans & Installments
+  - Insurance
+  - Utilities
+  - Entertainment & Dining
+  - Transport & Fuel
+  - Health & Medical
+  - Education & Family
+  - Taxes & Fees
+  - Personal Care & Shopping
+  - Other Expense
+- **Budget Limits**: Define monthly spending thresholds per expense category with visual overspend indicators.
+- **Role-Based Access Control**: Separate administrative access (protected by a 4-digit PIN) from general family member accounts.
+- **Authentication & Security**: Passlib bcrypt password and PIN hashing with JSON Web Tokens (JWT).
+- **Data Export**: Export transaction data to CSV, XLSX (Excel), and JSON formats.
+- **Analytics & Dashboards**: Interactive financial metrics and distribution charts powered by Recharts.
 
 ---
 
-## 💻 Εκτέλεση σε Windows 11 (Τοπική Ανάπτυξη)
+## Tech Stack
 
-### 1. Εκκίνηση του Backend API (Port 8050)
-Ανοίξτε ένα παράθυρο PowerShell στον φάκελο `backend`:
+- **Backend**: Python 3.14+, FastAPI, SQLAlchemy 2.0 (Async), Pydantic v2, SQLite.
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide.
+- **Deployment**: Docker, Docker Compose, Caddy Reverse Proxy.
+
+---
+
+## Getting Started
+
+### Local Development (Windows 11)
+
+#### 1. Backend API (Port 8050)
+
+Execute the following commands in PowerShell within the `backend` directory:
+
 ```powershell
 cd backend
 .\setup_win11.ps1
 .\run_win11.ps1
 ```
-* **Backend Swagger Docs**: [http://localhost:8050/docs](http://localhost:8050/docs)
-* **Backend Health Check**: [http://localhost:8050/health](http://localhost:8050/health)
 
-### 2. Εκκίνηση του Frontend Dashboard (Port 3000)
-Ανοίξτε ένα **δεύτερο παράθυρο PowerShell** στον φάκελο `frontend`:
+- Swagger API Documentation: http://localhost:8050/docs
+- Health Check: http://localhost:8050/health
+
+#### 2. Frontend Dashboard (Port 3000)
+
+Execute the following commands in a separate PowerShell window within the `frontend` directory:
+
 ```powershell
 cd frontend
 .\run_frontend_win11.ps1
 ```
-* **Frontend App**: [http://localhost:3000](http://localhost:3000)
+
+- Web Dashboard: http://localhost:3000
 
 ---
 
-## 🐧 Εκτέλεση σε Docker (Docker Compose με 1 Εντολή)
+## Docker Deployment
 
-Για αυτόματη εκκίνηση Backend, Frontend & Caddy Proxy στο Fedora Linux ή Docker Desktop:
+To launch the complete application stack (Backend, Frontend, and Caddy Proxy) using Docker Compose:
+
 ```bash
 cp .env.example .env
 docker-compose up --build -d
 ```
-* **Caddy Reverse Proxy**: [http://localhost:8080](http://localhost:8080)
-* **API Documentation**: [http://localhost:8050/docs](http://localhost:8050/docs)
+
+- Caddy Reverse Proxy: http://localhost:8080
+- API Documentation: http://localhost:8050/docs
